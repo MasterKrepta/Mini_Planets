@@ -25,6 +25,9 @@ public class ClickToMove : MonoBehaviour
         TargetPlanet = DrawLine.TargetPlanet;
 
         if (TargetPlanet != null && Input.GetMouseButtonDown(0)) {
+            if (TargetPlanet == orbit.BodyToOrbit) {
+                return;
+            }
             orbit.LeaveOrbit();
             collider2D.enabled = false;
             StartCoroutine(ColliderDelay());
