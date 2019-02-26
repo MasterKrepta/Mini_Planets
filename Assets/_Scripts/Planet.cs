@@ -15,22 +15,51 @@ public class Planet : MonoBehaviour
     [SerializeField] Color planetColor;
     Color ringColor;
 
+    public Resource resource;
+
     [SerializeField] List<GameObject> obsInOrbit = new List<GameObject>();
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        planetColor = PossibleColors[Random.Range(0, PossibleColors.Length - 1)];
+        int rand = Random.Range(0, PossibleColors.Length - 1);
+        planetColor = PossibleColors[rand];
         GetComponent<SpriteRenderer>().color = planetColor;
         ringColor = new Color(planetColor.r, planetColor.g, planetColor.b, 0.5f);
 
         orbitRing.color = ringColor;
-        
+        resource = GetComponent<Resource>();
+        AssignResource(rand);
 
         float theScale = transform.localScale.x;
         distToPlanet = GetComponent<CircleCollider2D>().radius * theScale + orbitOffset;
         collider = GetComponent<CircleCollider2D>();
     }
 
+
+    void AssignResource(int value) {
+        switch (value) {
+            case 0:
+                resource.Type = Resource.Types.HULL;
+                resource.Init();
+                break;
+            case 1:
+                resource.Type = Resource.Types.ENERGY;
+                resource.Init();
+                break;
+            case 2:
+                resource.Type = Resource.Types.FUEL;
+                resource.Init();
+                break;
+            case 3:
+                resource.Type = Resource.Types.FOOD;
+                resource.Init();
+                break;
+            default:
+                resource.Type = Resource.Types.FUEL;
+                resource.Init();
+                break;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player") || collision.CompareTag("Obstacle")) {
             //Debug.Log("enterTrigger on planet " + this.name);
@@ -39,6 +68,8 @@ public class Planet : MonoBehaviour
             collision.transform.rotation = Quaternion.Euler(Vector3.zero);
             
             collision.GetComponent<Orbit>().BodyToOrbit = this; // begin orbit
+            StatsManager.OnEnterOrbit();
+            resource.GiveResource();
         }
     }
     //public void ToggleCollider() {

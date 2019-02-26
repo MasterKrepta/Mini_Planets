@@ -13,6 +13,8 @@ public class Orbit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StatsManager.OnEnterOrbit += EnterOrbit;
+        
         try {
             DrawLine = GetComponentInChildren<DrawLine>();
         }
@@ -39,10 +41,18 @@ public class Orbit : MonoBehaviour
         transform.RotateAround(BodyToOrbit.transform.position, Vector3.forward, (BodyToOrbit.OrbitalSpeedModifier + baseMoveSpeed) * Time.deltaTime);
     }
 
+    void EnterOrbit() {
+        
+        StatsManager.IncreaseResource(BodyToOrbit.resource);
+    }
 
     public void LeaveOrbit() {
         print("Leaving Orbit");
-        
+        StatsManager.OnLeaveOrbit();
         //BodyToOrbit.GetComponent<Planet>().ToggleCollider();
+    }
+
+    private void OnDisable() {
+        StatsManager.OnEnterOrbit -= EnterOrbit;
     }
 }
