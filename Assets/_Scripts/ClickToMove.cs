@@ -13,6 +13,7 @@ public class ClickToMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StatsManager.OnGameOver += DisableOnGameOver;
         DrawLine = GetComponentInChildren<DrawLine>();
         collider2D = GetComponent<CircleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -46,5 +47,14 @@ public class ClickToMove : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         collider2D.enabled = true;
 
+    }
+
+    void DisableOnGameOver() {
+        this.enabled = false;
+        DrawLine.enabled = false;
+    }
+
+    private void OnDisable() {
+        StatsManager.OnGameOver -= DisableOnGameOver;
     }
 }

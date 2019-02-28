@@ -9,10 +9,12 @@ public class Orbit : MonoBehaviour
     public Planet BodyToOrbit;
     [SerializeField] float baseMoveSpeed = 1f;
     DrawLine DrawLine;
+    [SerializeField] GameObject Thrusters;
     
     // Start is called before the first frame update
     void Start()
     {
+        
         StatsManager.OnEnterOrbit += EnterOrbit;
         
         try {
@@ -42,12 +44,13 @@ public class Orbit : MonoBehaviour
     }
 
     void EnterOrbit() {
-        
+        Thrusters.SetActive(false);
         StatsManager.IncreaseResource(BodyToOrbit.resource);
     }
 
     public void LeaveOrbit() {
         print("Leaving Orbit");
+        Thrusters.SetActive(true);
         StatsManager.OnLeaveOrbit();
         //BodyToOrbit.GetComponent<Planet>().ToggleCollider();
     }

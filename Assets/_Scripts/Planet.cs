@@ -21,7 +21,7 @@ public class Planet : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        int rand = Random.Range(0, PossibleColors.Length - 1);
+        int rand = Random.Range(0, PossibleColors.Length);
         planetColor = PossibleColors[rand];
         GetComponent<SpriteRenderer>().color = planetColor;
         ringColor = new Color(planetColor.r, planetColor.g, planetColor.b, 0.5f);

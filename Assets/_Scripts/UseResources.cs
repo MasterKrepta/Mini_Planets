@@ -12,6 +12,12 @@ public class UseResources : MonoBehaviour
         StatsManager.OnLeaveOrbit += UseFuel;
         
     }
+    void LoseHull() {
+        Resource r = new Resource();
+        r.Type = Resource.Types.HULL;
+        StatsManager.DecreaseResources(r);
+        StatsManager.Instance.UpdateUI();
+    }
     void UseFood() {
         Resource r = new Resource();
         r.Type = Resource.Types.FOOD;
@@ -32,9 +38,17 @@ public class UseResources : MonoBehaviour
         StatsManager.DecreaseResources(r);
         StatsManager.Instance.UpdateUI();
     }
-    void TakeResourcesOnOrbit() {
+    public void TakeResourcesOnOrbit() {
+        StatsManager.Instance.UpdateUI(); // HACK
+        if (StatsManager.Instance.EnergyUI.value > 0) {
+            UseEnergy();
+        }
+        else {
+            LoseHull();
+        }
         Orbit o = this.gameObject.GetComponent<Orbit>();
         StatsManager.IncreaseResource(o.BodyToOrbit.resource);
+
     }
 
     private void OnDisable() {

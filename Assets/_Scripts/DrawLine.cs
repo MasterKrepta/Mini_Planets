@@ -23,7 +23,7 @@ public class DrawLine : MonoBehaviour
 
         if (!Traveling) {
             lr.enabled = true;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 100, planetLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 20, planetLayer);
 
             lr.SetPosition(0, transform.position);
 
