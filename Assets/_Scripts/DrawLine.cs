@@ -6,6 +6,7 @@ public class DrawLine : MonoBehaviour
 {
     LineRenderer lr;
     [SerializeField]LayerMask planetLayer = 9;
+    [SerializeField] float DrawLength = 30f;
     Orbit playerOrbit;
     public Planet TargetPlanet = null;
     public bool Traveling = false;
@@ -23,7 +24,7 @@ public class DrawLine : MonoBehaviour
 
         if (!Traveling) {
             lr.enabled = true;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 20, planetLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, DrawLength, planetLayer);
 
             lr.SetPosition(0, transform.position);
 

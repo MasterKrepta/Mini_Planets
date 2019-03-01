@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 768216663064411360}
   - component: {fileID: 768216663064411361}
   - component: {fileID: 768216663064411362}
-  - component: {fileID: 1098655118}
+  - component: {fileID: 1730146176}
   m_Layer: 9
   m_Name: Planet001
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 768216663064411363}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.39, y: 8.17, z: -0.14849907}
-  m_LocalScale: {x: 6.9027452, y: 6.9027452, z: 6.9027452}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 768216664295463852}
   m_Father: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 059662cca8acc0c4082a87b8987ad904, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &768216663064411361
@@ -119,11 +119,14 @@ MonoBehaviour:
   - {r: 0, g: 0.627451, b: 1, a: 1}
   - {r: 0.9254902, g: 0.8509804, b: 0.06666667, a: 1}
   - {r: 0.06666667, g: 0.62352943, b: 0.05490196, a: 1}
+  PossibleSprites:
+  - {fileID: 21300000, guid: 2a16e65d3d252534685f9b77b752585c, type: 3}
+  - {fileID: 21300000, guid: 31791bf7b25f2d5449c02ac5939266c2, type: 3}
   orbitRing: {fileID: 768216664295463843}
   planetColor: {r: 1, g: 1, b: 1, a: 1}
   resource: {fileID: 0}
   obsInOrbit: []
---- !u!114 &1098655118
+--- !u!114 &1730146176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

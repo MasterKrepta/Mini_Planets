@@ -25,7 +25,7 @@ public class Resource : MonoBehaviour
                 Value = 20f;
                 break;
             case Types.FOOD:
-                Value = 5f;
+                Value = 1f;
                 break;
             default:
                 break;

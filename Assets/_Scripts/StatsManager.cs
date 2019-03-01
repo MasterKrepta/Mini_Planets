@@ -6,10 +6,22 @@ using UnityEngine.UI;
 
 public class StatsManager : MonoBehaviour
 {
+    public static float PlanetEnergy;
+    public static float PlanetFood;
+    public static float PlanetPopulation;
+    
+    public Slider PlanetEnergyUI;
+    public Slider PlanetFoodUI;
+    public Slider PopulationUI;
+
+
     public  Slider HullUI;
     public  Slider EnergyUI;
     public  Slider FuelUI;
     public  Slider FoodUI;
+
+    public float DecreasePlanetTimer = 10f;
+    [SerializeField] float thresholdToIncreasePop = 50f;
 
     public static Action OnEnterOrbit = delegate { };
     public static Action OnLeaveOrbit = delegate { };
@@ -39,7 +51,14 @@ public class StatsManager : MonoBehaviour
         CurrentFood = 100f;
         CurrentFuel = 100f;
         CurrentEnergy = 100f;
-    }
+
+        PlanetEnergy = 50;
+        PlanetFood = 50;
+        PlanetPopulation = 300;
+
+        UpdatePlanetUI();
+        InvokeRepeating("DecreasePlanetResources", 1, DecreasePlanetTimer);
+}
 
 
     public static void DecreaseResources(Resource resource) {
@@ -104,6 +123,34 @@ public class StatsManager : MonoBehaviour
         FuelUI.value = CurrentFuel / 100;
         FoodUI.value = CurrentFood / 100;
         CheckGameOver();
+    }
+
+    public void UpdatePlanetUI() {
+        PlanetEnergyUI.value = PlanetEnergy / 100;
+        PlanetFoodUI.value = PlanetFood / 100;
+        PopulationUI.value = PlanetPopulation / 1000;
+        CheckWinCondition();
+    }
+
+    void DecreasePlanetResources() {
+        PlanetEnergy -= 10f;
+        PlanetFood -= 10f;
+        if (PlanetFood < thresholdToIncreasePop) {
+            PlanetPopulation -= 25;
+        }
+        else {
+            PlanetPopulation += 50;
+        }
+        
+
+        UpdatePlanetUI();
+    }
+
+    private void CheckWinCondition() {
+        if (PlanetPopulation >= 50000) {
+            //TODO call GAmeoverscene
+            Debug.Log("!!!!!!! YOU WIN!!!!!! ");
+        }
     }
 
     private void CheckGameOver() {

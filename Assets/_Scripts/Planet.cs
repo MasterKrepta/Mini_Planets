@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class Planet : MonoBehaviour
     [SerializeField] float orbitOffset = 0.2f;
     CircleCollider2D collider;
     [SerializeField] Color[] PossibleColors;
+    [SerializeField] Sprite[] PossibleSprites;
     [SerializeField] SpriteRenderer orbitRing;
 
     [SerializeField] Color planetColor;
@@ -21,7 +23,8 @@ public class Planet : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        int rand = Random.Range(0, PossibleColors.Length);
+        
+        int rand = UnityEngine.Random.Range(0, PossibleColors.Length);
         planetColor = PossibleColors[rand];
         GetComponent<SpriteRenderer>().color = planetColor;
         ringColor = new Color(planetColor.r, planetColor.g, planetColor.b, 0.5f);
@@ -35,6 +38,15 @@ public class Planet : MonoBehaviour
         collider = GetComponent<CircleCollider2D>();
     }
 
+    private void Start() {
+        GetRandomSprite();
+    }
+
+    private void GetRandomSprite() {
+        int r = UnityEngine.Random.Range(0, PossibleSprites.Length);
+        
+        this.GetComponent<SpriteRenderer>().sprite = PossibleSprites[r];
+    }
 
     void AssignResource(int value) {
         switch (value) {
