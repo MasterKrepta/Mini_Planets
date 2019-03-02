@@ -25,7 +25,7 @@ public class ClickToMove : MonoBehaviour
     {
         TargetPlanet = DrawLine.TargetPlanet;
 
-        if (TargetPlanet != null && Input.GetMouseButtonDown(0)) {
+        if (TargetPlanet != null && Input.GetMouseButtonDown(1)) {
             if (TargetPlanet == orbit.BodyToOrbit) {
                 return;
             }

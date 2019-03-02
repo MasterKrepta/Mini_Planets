@@ -27,6 +27,7 @@ public class DrawLine : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, DrawLength, planetLayer);
 
             lr.SetPosition(0, transform.position);
+            
 
             if (hit.collider != null) {
                 lr.SetPosition(1, hit.point);
@@ -34,9 +35,12 @@ public class DrawLine : MonoBehaviour
                 //TODO instantiate an effect here
             }
             else {
-                lr.SetPosition(1, transform.up * 100);
+                //lr.SetPosition(1, transform.up * 100);
+                lr.SetPosition(1, Camera.main.ScreenToWorldPoint( Input.mousePosition));
                 TargetPlanet = null;
             }
+            
+            //lr.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
         else {
             lr.enabled = false;

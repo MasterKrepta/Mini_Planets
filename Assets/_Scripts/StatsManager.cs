@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StatsManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class StatsManager : MonoBehaviour
     public Slider PlanetFoodUI;
     public Slider PopulationUI;
 
+    public TMP_Text foodText, energyText, popText;
 
     public  Slider HullUI;
     public  Slider EnergyUI;
@@ -48,7 +50,7 @@ public class StatsManager : MonoBehaviour
         }
 
         CurrentHull = 100f;
-        CurrentFood = 100f;
+        CurrentFood = 25f;
         CurrentFuel = 100f;
         CurrentEnergy = 100f;
 
@@ -129,6 +131,10 @@ public class StatsManager : MonoBehaviour
         PlanetEnergyUI.value = PlanetEnergy / 100;
         PlanetFoodUI.value = PlanetFood / 100;
         PopulationUI.value = PlanetPopulation / 1000;
+        popText.text = PlanetPopulation.ToString();
+        foodText.text = PlanetFood.ToString();
+        energyText.text = PlanetEnergy.ToString();
+        
         CheckWinCondition();
     }
 
@@ -142,7 +148,6 @@ public class StatsManager : MonoBehaviour
             PlanetPopulation += 50;
         }
         
-
         UpdatePlanetUI();
     }
 
@@ -154,7 +159,7 @@ public class StatsManager : MonoBehaviour
     }
 
     private void CheckGameOver() {
-        if (CurrentHull == 0|| CurrentFuel == 0|| CurrentFood == 0) {
+        if (CurrentHull == 0|| CurrentFuel == 0) {
             Debug.Log(" !!!!!!!!! -- GAME OVER -- !!!!!!! ");
             OnGameOver();
         }

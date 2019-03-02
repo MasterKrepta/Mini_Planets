@@ -27,13 +27,14 @@ public class Homeworld : Planet
     void  GiveResources() {
         StatsManager.OnEnterOrbit();
         Debug.Log("Give Resources to planet");
+
         float foodToGive = StatsManager.CurrentFood / 2;
         StatsManager.CurrentFood -= foodToGive;
         StatsManager.PlanetFood += foodToGive;
 
         float energyToGive = StatsManager.CurrentEnergy / 2;
-        StatsManager.CurrentEnergy -= energyToGive;
-        StatsManager.PlanetFood += energyToGive;
+        StatsManager.CurrentEnergy = 100f; //REset Energy
+        StatsManager.PlanetEnergy += energyToGive;
 
         StatsManager.Instance.UpdateUI();
         StatsManager.Instance.UpdatePlanetUI();

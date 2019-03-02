@@ -10,8 +10,8 @@ public class Resource : MonoBehaviour
         FUEL, HULL, ENERGY, FOOD
     }
 
-    public Types Type = Types.FUEL;
-    public float Value = 5f;
+    public Types Type;
+    public float Value;
 
     public void Init() {
         switch (Type) {
@@ -25,7 +25,7 @@ public class Resource : MonoBehaviour
                 Value = 20f;
                 break;
             case Types.FOOD:
-                Value = 1f;
+                Value = 20f;
                 break;
             default:
                 break;
