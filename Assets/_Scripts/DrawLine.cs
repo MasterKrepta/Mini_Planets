@@ -6,7 +6,7 @@ public class DrawLine : MonoBehaviour
 {
     LineRenderer lr;
     [SerializeField]LayerMask planetLayer = 9;
-    [SerializeField] float DrawLength = 30f;
+    [SerializeField] float DrawLength = 50f;
     Orbit playerOrbit;
     public Planet TargetPlanet = null;
     public bool Traveling = false;

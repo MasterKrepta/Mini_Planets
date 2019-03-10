@@ -28,6 +28,7 @@ public class StatsManager : MonoBehaviour
     public static Action OnEnterOrbit = delegate { };
     public static Action OnLeaveOrbit = delegate { };
     public static Action OnGameOver = delegate { };
+    public static Action OnGameWin = delegate { };
 
 
     public static StatsManager Instance = null;
@@ -56,7 +57,7 @@ public class StatsManager : MonoBehaviour
 
         PlanetEnergy = 50;
         PlanetFood = 50;
-        PlanetPopulation = 300;
+        PlanetPopulation = 1000;
 
         UpdatePlanetUI();
         InvokeRepeating("DecreasePlanetResources", 1, DecreasePlanetTimer);
@@ -87,28 +88,28 @@ public class StatsManager : MonoBehaviour
 
         switch (resource.Type) {
             case Resource.Types.FUEL:
-                print("FuelGiven");
+                //print("FuelGiven");
                 CurrentFuel += resource.Value;
                 if (CurrentFuel > 100) {
                     CurrentFuel = 100;
                 }
                 break;
             case Resource.Types.HULL:
-                print("Hull Increased");
+                //print("Hull Increased");
                 CurrentHull += resource.Value;
                 if (CurrentHull > 100) {
                     CurrentHull = 100;
                 }
                 break;
             case Resource.Types.ENERGY:
-                print("EnergyIncreased");
+                //print("EnergyIncreased");
                 CurrentEnergy += resource.Value;
                 if (CurrentEnergy > 100) {
                     CurrentEnergy = 100;
                 }
                 break;
             case Resource.Types.FOOD:
-                print("Food Increased");
+                //print("Food Increased");
                 if (CurrentFood > 100) {
                     CurrentFood = 100;
                 }
@@ -130,17 +131,18 @@ public class StatsManager : MonoBehaviour
     public void UpdatePlanetUI() {
         PlanetEnergyUI.value = PlanetEnergy / 100;
         PlanetFoodUI.value = PlanetFood / 100;
-        PopulationUI.value = PlanetPopulation / 1000;
+        PopulationUI.value = PlanetPopulation / 5000;
         popText.text = PlanetPopulation.ToString();
         foodText.text = PlanetFood.ToString();
         energyText.text = PlanetEnergy.ToString();
         
-        CheckWinCondition();
+        
     }
 
     void DecreasePlanetResources() {
+        float foodModifier = PlanetPopulation / 1000;
         PlanetEnergy -= 10f;
-        PlanetFood -= 10f;
+        PlanetFood -= foodModifier;
         if (PlanetFood < thresholdToIncreasePop) {
             PlanetPopulation -= 25;
         }
@@ -149,18 +151,20 @@ public class StatsManager : MonoBehaviour
         }
         
         UpdatePlanetUI();
+        CheckWinCondition();
+        CheckGameOver();
     }
 
     private void CheckWinCondition() {
-        if (PlanetPopulation >= 50000) {
-            //TODO call GAmeoverscene
-            Debug.Log("!!!!!!! YOU WIN!!!!!! ");
+        if (PlanetPopulation >= 5000) {
+            OnGameWin();
+            //Debug.Log("!!!!!!! YOU WIN!!!!!! ");
         }
     }
 
     private void CheckGameOver() {
-        if (CurrentHull == 0|| CurrentFuel == 0) {
-            Debug.Log(" !!!!!!!!! -- GAME OVER -- !!!!!!! ");
+        if (CurrentHull == 0|| CurrentFuel == 0 || PlanetFood == 0|| PlanetPopulation == 0) {
+            //Debug.Log(" !!!!!!!!! -- GAME OVER -- !!!!!!! ");
             OnGameOver();
         }
     }

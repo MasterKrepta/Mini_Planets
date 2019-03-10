@@ -12,8 +12,9 @@ public class Planet : MonoBehaviour
     CircleCollider2D collider;
     [SerializeField] Color[] PossibleColors;
     [SerializeField] Sprite[] PossibleSprites;
+    [SerializeField] Sprite[] ResourceSprites;
     [SerializeField] SpriteRenderer orbitRing;
-
+    [SerializeField] SpriteRenderer ResourceIcon;
     [SerializeField] Color planetColor;
     Color ringColor;
 
@@ -52,22 +53,27 @@ public class Planet : MonoBehaviour
         switch (value) {
             case 0:
                 resource.Type = Resource.Types.HULL;
+                ResourceIcon.sprite = ResourceSprites[0];
                 resource.Init();
                 break;
             case 1:
                 resource.Type = Resource.Types.ENERGY;
+                ResourceIcon.sprite = ResourceSprites[1];
                 resource.Init();
                 break;
             case 2:
                 resource.Type = Resource.Types.FUEL;
+                ResourceIcon.sprite = ResourceSprites[2];
                 resource.Init();
                 break;
             case 3:
                 resource.Type = Resource.Types.FOOD;
+                ResourceIcon.sprite = ResourceSprites[3];
                 resource.Init();
                 break;
             default:
                 resource.Type = Resource.Types.FUEL;
+                ResourceIcon.sprite = ResourceSprites[2];
                 resource.Init();
                 break;
         }
